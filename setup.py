@@ -1,5 +1,5 @@
 """
-Setup instuctions for h51.
+Setup instuctions for GeoUK.
 """
 
 # Always prefer setuptools over distutils

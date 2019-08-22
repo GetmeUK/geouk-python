@@ -30,7 +30,7 @@ suggestions = geouk.resources.Place.typeahead(client, 'wo...')
 # Fetch a list of `Place`s that match the given query string
 places = geouk.resources.Place.search(client, 'worcester')
 
-print(places.humanized_name, places[0].geo_coords)
+print(places[0].humanized_name, places[0].geo_coords)
 
 >> Worcester [52.18935, -2.22001]
 
