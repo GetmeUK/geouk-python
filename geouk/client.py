@@ -13,13 +13,20 @@ class Client:
     A client for the GeoUK API.
     """
 
-    def __init__(self, api_key, api_base_url='https://api.geouk.xyz'):
+    def __init__(self,
+        api_key,
+        api_base_url='https://api.geouk.xyz',
+        timeout=None
+    ):
 
         # A key used to authenticate API calls to an account
         self._api_key = api_key
 
         # The base URL to use when calling the API
         self._api_base_url = api_base_url
+
+        # The period of time before requests to the API should timeout
+        self._timeout = timeout
 
         # NOTE: Rate limiting information is only available after a request
         # has been made.
@@ -79,7 +86,8 @@ class Client:
             params=params,
             data=data,
             json=json_type_body,
-            files=files
+            files=files,
+            timeout=self._timeout
         )
 
         # Update the rate limit
