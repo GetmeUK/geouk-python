@@ -37,7 +37,6 @@ class _BaseResource:
         return self.__dict__['_document'].get(name, default)
 
 
-
 class Place(_BaseResource):
     """
     A place within the UK or Republic of Ireland.
@@ -45,6 +44,29 @@ class Place(_BaseResource):
 
     def __str__(self):
         return f'Place: {self.humanized_name}'
+
+    @classmethod
+    def random(cls, client, lat, lon, d):
+        """
+        Fetch a random place within the given distance of the center
+        (lat, lon).
+        """
+
+        # Fetch the random place
+        r = client(
+            'get',
+            'places/random',
+            params={
+                'lat': lat,
+                'lon': lon,
+                'd': d
+            }
+        )
+
+        if r:
+            return cls(client, r)
+
+        return None
 
     @classmethod
     def search(cls, client, q):
@@ -76,6 +98,7 @@ class Place(_BaseResource):
         )
 
         return r
+
 
 class Source(_BaseResource):
     """
