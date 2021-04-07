@@ -69,32 +69,40 @@ class Place(_BaseResource):
         return None
 
     @classmethod
-    def search(cls, client, q):
+    def search(cls, client, q, exclude_ireland=False):
         """
         Fetch a list of places that match the given query string.
         """
+
+        params = {'q': q}
+        if exclude_ireland:
+            params['exclude_ireland'] = True
 
         # Fetch the matching places
         r = client(
             'get',
             'places/search',
-            params={'q': q}
+            params=params
         )
 
         return [cls(client, p) for p in r]
 
     @classmethod
-    def typeahead(cls, client, q):
+    def typeahead(cls, client, q, exclude_ireland=False):
         """
         Return a list of place names and postcodes starting with the query
         string's first 2 characters
         """
 
+        params = {'q': q}
+        if exclude_ireland:
+            params['exclude_ireland'] = True
+
         # Fetch the typeahead results
         r = client(
             'get',
             'places/typeahead',
-            params={'q': q}
+            params=params
         )
 
         return r
